@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>咒语</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #8b0000;
+      font-family: '宋体', 'SimSun', serif;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .spell-box {
+      background: #1a0a0a;
+      border: 2px solid #440000;
+      padding: 30px;
+      margin: 30px 0;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .spell-label {
+      color: #660000;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .spell-text {
+      color: #ff0000;
+      font-size: 2rem;
+      text-shadow: 0 0 10px #ff0000;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      line-height: 2;
+      margin: 30px 0;
+      color: #cc0000;
+    }
+
+    .message strong {
+      color: #ff0000;
+      font-size: 1.5rem;
+    }
+
+    .input-area {
+      margin-top: 40px;
+    }
+
+    .input-area label {
+      display: block;
+      margin-bottom: 10px;
+      color: #cc0000;
+      font-size: 1rem;
+    }
+
+    .input-area input {
+      width: 100%;
+      padding: 12px;
+      background: #1a0a0a;
+      border: 1px solid #440000;
+      color: #ff0000;
+      font-size: 1rem;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .input-area input::placeholder {
+      color: #660000;
+    }
+
+    .input-area button {
+      margin-top: 15px;
+      background: #440000;
+      color: #ff0000;
+      border: 1px solid #660000;
+      padding: 10px 30px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .input-area button:hover {
+      background: #550000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spell-box">
+      <div class="spell-label">咒语</div>
+      <div class="spell-text">back_to_your_home</div>
+    </div>
+
+    <div class="message">
+      告诉他：<strong>用户4033299238</strong>
+    </div>
+
+    <div class="message">
+      当你准备好面对真相的时候<br>
+      记住：你不该做什么？
+    </div>
+
+    <div class="input-area">
+      <label>你不该做什么？</label>
+      <input type="text" id="answerInput" placeholder="输入答案...">
+      <button onclick="checkAnswer()">确认</button>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswer() {
+      const answer = document.getElementById('answerInput').value.trim();
+      if (answer === '继续调查') {
+        location.href = 'victory.html';
+      }
+    }
+
+    document.getElementById('answerInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkAnswer();
+    });
+  </script>
+</body>
+</html>

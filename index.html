@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>★ 新林中学论坛 ★ Welcome to the Future!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部横幅 -->
+    <header class="banner">
+      <h1>★ 新林中学论坛 ★</h1>
+      <p class="subtitle">✧ Welcome to the Future! ✧ 千禧年校园交流站 ✧</p>
+      <p class="motto">「 博学 · 笃行 · 新林精神永流传 」</p>
+      <div class="counter-box" id="visitorCounter">000000</div>
+    </header>
+
+    <!-- 跑马灯 -->
+    <div class="marquee-bar">
+      <span>🌟 欢迎来到新林中学论坛！请文明发言，共建和谐校园网络社区 ~ Best viewed in 800×600 ~ 本站支持 IE 6.0+ 🌟</span>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+      <a href="index.html" class="nav-item active">🏠 主页</a>
+      <a href="pages/notice/index.html" class="nav-item">📢 通知</a>
+      <a href="#" class="nav-item nav-pending" onclick="navPending(event, '活动')">活动</a>
+      <a href="#" class="nav-item nav-pending" onclick="navPending(event, '关于')">关于</a>
+    </nav>
+
+    <hr class="rainbow-hr">
+
+    <!-- 用户状态栏 -->
+    <div class="panel">
+      <div class="user-bar">
+        <div class="user-info" id="userStatus">
+          当前状态：<strong>游客</strong> — 请登录后发帖
+        </div>
+        <div class="btn-group" id="userActions">
+          <button class="btn btn-primary" onclick="showAuth()">登录 / 注册</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 首页：帖子列表 ===== -->
+    <div id="viewHome" class="view active">
+      <div class="panel panel-featured" id="featuredPanel">
+        <div class="panel-title">🌟 精选帖子</div>
+        <div id="featuredListContainer">
+          <ul class="post-list" id="featuredList"></ul>
+          <div class="empty-state hidden" id="emptyFeatured">
+            <span class="emoji">✨</span>
+            暂无精选帖子
+          </div>
+        </div>
+      </div>
+
+      <div class="panel search-panel">
+        <div class="panel-title">🔍 帖子搜索</div>
+        <form class="search-bar" onsubmit="handleSearch(event)">
+          <input type="text" id="searchInput" placeholder="输入关键词搜索标题、内容、作者、评论…" maxlength="50" oninput="handleSearch()">
+          <button type="submit" class="btn btn-secondary">搜索</button>
+          <button type="button" class="btn btn-primary" onclick="clearSearch()">清除</button>
+        </form>
+        <p class="search-hint hidden" id="searchHint"></p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">📋 论坛帖子列表</div>
+        <div id="postListContainer">
+          <ul class="post-list" id="postList"></ul>
+          <div class="empty-state hidden" id="emptyPosts">
+            <span class="emoji">(ಥ﹏ಥ)</span>
+            <span id="emptyPostsText">还没有帖子哦，快来发第一个吧！</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel hidden" id="newPostPanel">
+        <div class="panel-title">✏️ 发表新帖</div>
+        <form id="newPostForm" onsubmit="handleNewPost(event)">
+          <div class="form-group">
+            <label>标题</label>
+            <input type="text" id="postTitle" placeholder="输入帖子标题..." maxlength="100" required>
+          </div>
+          <div class="form-group">
+            <label>内容</label>
+            <textarea id="postContent" placeholder="写下你想说的话..." maxlength="5000" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">🚀 发布帖子</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== 登录/注册页 ===== -->
+    <div id="viewAuth" class="view">
+      <span class="back-link" onclick="showHome()">← 返回论坛</span>
+      <div class="panel">
+        <div class="panel-title">🔐 用户中心</div>
+        <div class="auth-section">
+          <div class="auth-box">
+            <h3>🌈 登录</h3>
+            <form onsubmit="handleLogin(event)">
+              <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="loginUsername" placeholder="你的用户名" required>
+              </div>
+              <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="你的密码" required>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%">登录</button>
+            </form>
+          </div>
+          <div class="auth-box">
+            <h3>✨ 注册</h3>
+            <form onsubmit="handleRegister(event)">
+              <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="regUsername" placeholder="3-16个字符" minlength="3" maxlength="16" required>
+              </div>
+              <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="regPassword" placeholder="至少6位" minlength="6" required>
+              </div>
+              <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="regPassword2" placeholder="再输一次" required>
+              </div>
+              <button type="submit" class="btn btn-secondary" style="width:100%">注册账号</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 帖子详情页 ===== -->
+    <div id="viewPost" class="view">
+      <span class="back-link" onclick="showHome()">← 返回列表</span>
+      <div class="panel post-detail" id="postDetail"></div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <p>© 2000新林中学论坛 | Powered by <span class="blink">HTML</span> + <span class="blink">localStorage</span></p>
+      <p style="margin-top:6px">🚧 本站最佳分辨率 1024×768 | 建议使用 Netscape Navigator 🚧</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

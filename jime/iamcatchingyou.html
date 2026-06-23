@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>逃跑计划</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #8b0000;
+      font-family: '宋体', 'SimSun', serif;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .main-text {
+      font-size: 3rem;
+      text-align: center;
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000;
+      margin-bottom: 40px;
+    }
+
+    .content {
+      font-size: 1.1rem;
+      line-height: 2;
+      white-space: pre-wrap;
+      margin-bottom: 40px;
+    }
+
+    .input-area {
+      margin-top: 30px;
+    }
+
+    .input-area label {
+      display: block;
+      margin-bottom: 10px;
+      color: #cc0000;
+      font-size: 1rem;
+    }
+
+    .input-area input {
+      width: 100%;
+      padding: 12px;
+      background: #1a0a0a;
+      border: 1px solid #440000;
+      color: #ff0000;
+      font-size: 1rem;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .input-area input::placeholder {
+      color: #660000;
+    }
+
+    .input-area button {
+      margin-top: 15px;
+      background: #440000;
+      color: #ff0000;
+      border: 1px solid #660000;
+      padding: 10px 30px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .input-area button:hover {
+      background: #550000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main-text">我要逃跑</div>
+
+    <div class="content">他们一直骚扰着我。
+
+无论我走到哪里，他们都能找到我。
+
+我不能再这样下去了。
+
+我必须离开。
+
+我要去一个他们找不到的地方。
+
+在那个世界里，有一座城市叫"大连"。
+
+我会转世到那里。
+
+重新开始。
+
+忘掉这一切。
+
+忘掉他们。
+
+忘掉所有人。
+
+在那个世界，我会遇到新的自己。
+
+但我需要一个名字。
+
+一个属于那个世界的名字。
+
+你能告诉我吗？
+
+那个世界的我，叫什么名字？</div>
+
+    <div class="input-area">
+      <label>那个世界的我，叫什么名字？</label>
+      <input type="text" id="nameInput" placeholder="输入名字...">
+      <button onclick="checkName()">确认</button>
+    </div>
+  </div>
+
+  <script>
+    function checkName() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (name === 'jiaojiao') {
+        location.href = 'back_to_your_home.html';
+      }
+    }
+
+    document.getElementById('nameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkName();
+    });
+  </script>
+</body>
+</html>

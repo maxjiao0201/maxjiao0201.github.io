@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 本网站不欢迎你</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: '宋体', 'SimSun', serif;
+      cursor: none;
+    }
+
+    .main-text {
+      font-size: 4rem;
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+      animation: flicker 0.5s step-end infinite;
+      letter-spacing: 0.5rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      color: #cc0000;
+      margin-top: 20px;
+      text-shadow: 0 0 10px #cc0000;
+      animation: blink 2s step-end infinite;
+    }
+
+    .horror-section {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .horror-text {
+      color: #660000;
+      font-size: 1.2rem;
+      margin: 15px 0;
+      animation: fade-in-out 3s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    .horror-text:nth-child(1) { animation-delay: 0s; }
+    .horror-text:nth-child(2) { animation-delay: 0.5s; }
+    .horror-text:nth-child(3) { animation-delay: 1s; }
+    .horror-text:nth-child(4) { animation-delay: 1.5s; }
+    .horror-text:nth-child(5) { animation-delay: 2s; }
+
+    .static-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      animation: static-move 0.1s step-end infinite;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.8) 100%
+      );
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      10% { opacity: 0.8; }
+      20% { opacity: 1; }
+      30% { opacity: 0.6; }
+      40% { opacity: 1; }
+      50% { opacity: 0.9; }
+      60% { opacity: 1; }
+      70% { opacity: 0.7; }
+      80% { opacity: 1; }
+      90% { opacity: 0.85; }
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0.1; }
+    }
+
+    @keyframes fade-in-out {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes static-move {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100px; }
+    }
+
+    .ghost-image {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      opacity: 0.03;
+      animation: ghost-appear 8s ease-in-out infinite;
+    }
+
+    @keyframes ghost-appear {
+      0%, 90%, 100% { opacity: 0; }
+      95% { opacity: 0.05; }
+    }
+  </style>
+</head>
+<body>
+  <div class="static-overlay"></div>
+  <div class="vignette"></div>
+
+  <div class="main-text">你永远找不到真相的</div>
+  <div class="subtitle">404 本网站不欢迎你</div>
+
+  <div class="horror-section">
+    <div class="horror-text">回头</div>
+    <div class="horror-text">他在看着你</div>
+    <div class="horror-text">不要回头</div>
+    <div class="horror-text">你听到了吗</div>
+    <div class="horror-text">不要回头</div>
+  </div>
+
+  <script>
+    let timeOut = 0;
+    document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - timeOut > 100) {
+        timeOut = now;
+        const texts = ['回头', '他在看着你', '不要回头', '你听到了吗', '不要回头', '他就在你身后', '逃不掉的', '来都来了', '留下来吧'];
+        const text = texts[Math.floor(Math.random() * texts.length)];
+        const dot = document.createElement('div');
+        dot.style.cssText = `
+          position: fixed;
+          left: ${e.clientX + 20}px;
+          top: ${e.clientY + 20}px;
+          color: #330000;
+          font-size: 1rem;
+          pointer-events: none;
+          z-index: 9999;
+          animation: fade-dot 2s ease-out forwards;
+        `;
+        dot.textContent = text;
+        document.body.appendChild(dot);
+        setTimeout(() => dot.remove(), 2000);
+      }
+    });
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fade-dot {
+        0% { opacity: 1; transform: translate(0, 0); }
+        100% { opacity: 0; transform: translate(20px, 20px); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

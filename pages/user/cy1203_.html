@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>★ cy1203_ 的个人主页 ★ 新林中学论坛</title>
+  <link rel="stylesheet" href="../index/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="banner">
+      <h1>★ 新林中学论坛 ★</h1>
+      <p class="subtitle">✧ 用户个人主页 ✧</p>
+    </header>
+
+    <div class="marquee-bar">
+      <span>🌟 正在加载用户资料…… Loading user profile…… 🌟</span>
+    </div>
+
+    <nav class="navbar">
+      <a href="../../index.html" class="nav-item">🏠 主页</a>
+      <a href="../../pages/notice/index.html" class="nav-item">📢 通知</a>
+      <a href="#" class="nav-item nav-pending" onclick="navPending(event, '活动')">🎉 活动</a>
+      <a href="#" class="nav-item nav-pending" onclick="navPending(event, '关于')">ℹ️ 关于</a>
+    </nav>
+
+    <hr class="rainbow-hr">
+
+    <span class="back-link" onclick="history.back()">← 返回上一页</span>
+
+    <div class="panel profile-card">
+      <div class="profile-avatar">👤</div>
+      <div class="profile-info">
+        <h2 class="profile-name">cy1203_</h2>
+        <p class="profile-meta">注册时间：2000-09-08 · 新林中学论坛用户</p>
+        <p class="profile-bio">「三年后，考场见。」</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">📝 TA 的帖子</div>
+      <div class="empty-state data-lost">
+        <span class="emoji">(×_×)</span>
+        <p class="data-lost-title">数据丢失</p>
+        <p class="data-lost-desc">无法读取该用户的帖子记录。档案可能已损坏或被移除。</p>
+        <p class="data-lost-code">ERR_ARCHIVE_NOT_FOUND · 0xC1203</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© 2000-2026 新林中学论坛 | Powered by <span class="blink">HTML</span> + <span class="blink">localStorage</span></p>
+    </footer>
+  </div>
+
+  <script src="../index/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jime 的帖子</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      color: #222;
+      font-weight: 600;
+    }
+
+    .header .nav {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .header .nav a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .header .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .search-bar {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .search-bar button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .search-bar button:hover {
+      background: #0056b3;
+    }
+
+    .post-panel {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .post-title {
+      font-size: 1.4rem;
+      color: #222;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .post-meta {
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .post-author {
+      color: #555;
+      font-weight: 500;
+    }
+
+    .post-content {
+      color: #444;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .post-content .red-text {
+      color: #dc3545;
+      font-weight: 500;
+      display: block;
+      margin-top: 20px;
+    }
+
+    .comments-panel {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 25px;
+    }
+
+    .comments-title {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      font-weight: 600;
+    }
+
+    .comment {
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .comment:last-child {
+      border-bottom: none;
+    }
+
+    .comment-meta {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .comment-author {
+      color: #555;
+      font-weight: 500;
+    }
+
+    .comment-body {
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .comment-form {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .comment-form textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 0.95rem;
+      min-height: 100px;
+      resize: vertical;
+      font-family: inherit;
+      margin-bottom: 12px;
+    }
+
+    .comment-form textarea:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .comment-form button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .comment-form button:hover {
+      background: #218838;
+    }
+
+    .empty-comments {
+      color: #999;
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.95rem;
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      z-index: 9999;
+      animation: toast-in 0.3s ease-out;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .toast.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .toast.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .footer a {
+      color: #666;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .modal h2 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .modal p {
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .modal-close {
+      margin-top: 20px;
+      background: #666;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>jime 的帖子</h1>
+      <div class="nav">
+        <a href="../index.html">返回主页</a>
+      </div>
+    </header>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="输入关键词搜索...">
+      <button onclick="handleSearch()">搜索</button>
+    </div>
+
+    <div class="post-panel" id="mainPost">
+      <div class="post-title">无标题</div>
+      <div class="post-meta">
+        <span class="post-author">jime</span>
+      </div>
+      <div class="post-content">我忘记了那件事情，差一点。
+
+我原以为自己改头换面就可以离开这一切，可不是这样的。
+
+他们还在。
+
+<span class="red-text">对不起对不起对不起对不起对不起对不起对不起对不起对不起对不起</span></div>
+    </div>
+
+    <div class="post-panel hidden" id="diaryPost">
+      <div class="post-title">日记</div>
+      <div class="post-meta">
+        <span class="post-author">jime</span>
+      </div>
+      <div class="post-content" style="color: #8b0000;">我找到了方法。
+
+在他们继续之前，我必须把这些记录下来。
+
+我不知道还能撑多久。
+
+我必须解决。只有这样才能结束一切。
+
+<img id="diaryImage" src="image/aid.png" alt="aid" style="max-width: 100%; margin: 15px 0; cursor: pointer;" onclick="this.src='image/aidh.png'">
+
+<span style="color: #ff0000;">不要来找我。 在那些无人注意的角落 可能有让人出乎意料的东西</span>
+
+<textarea id="diaryInput" placeholder="问题在哪" style="width: 100%; margin-top: 15px; border: 1px solid #8b0000; padding: 10px; border-radius: 4px; background: #1a0a0a; color: #ff0000; resize: vertical; min-height: 80px; font-family: inherit;"></textarea>
+<button onclick="submitDiary()" style="margin-top: 10px; background: #8b0000; color: #fff; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer;">提交</button></div>
+    </div>
+
+    <div class="comments-panel">
+      <div class="comments-title">评论区 (<span id="commentCount">0</span>)</div>
+      <div id="commentsContainer">
+        <div class="empty-comments">暂无评论</div>
+      </div>
+
+      <div class="comment-form">
+        <textarea id="commentInput" placeholder="写下你的评论..."></textarea>
+        <button onclick="handleComment()">发表评论</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a onclick="showPrivacy()">隐私政策</a>
+    </div>
+  </div>
+
+  <div class="modal" id="privacyModal">
+    <div class="modal-content">
+      <h2>隐私政策</h2>
+      <p>我们高度重视您的个人隐私。本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。</p>
+      <p><strong>信息收集：</strong>我们仅收集您主动提交的信息，包括评论内容等。</p>
+      <p><strong>信息使用：</strong>您提交的信息将仅用于本平台的服务功能，不会用于任何其他目的。</p>
+      <p><strong>信息存储：</strong>您的信息仅存储在您的本地浏览器中（localStorage），我们不会将您的信息存储在任何服务器上。</p>
+      <p><strong>信息安全：</strong>我们采用适当的技术措施保护您的个人信息安全。</p>
+      <p><strong>用户权利：</strong>您可以随时通过清除浏览器缓存的方式删除您的本地存储数据。</p>
+      <p><strong>政策更新：</strong>我们可能会不时更新本隐私政策，更新内容将通过网站公告形式发布。</p>
+      <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">最后更新日期：2000年10月1日</p>
+      <button class="modal-close" onclick="closePrivacy()">关闭</button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'jime_comments';
+
+    function showToast(msg, type = 'success') {
+      const el = document.createElement('div');
+      el.className = `toast ${type}`;
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }
+
+    function getComments() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function saveComments(comments) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+    }
+
+    function renderComments() {
+      const comments = getComments();
+      const container = document.getElementById('commentsContainer');
+      const countEl = document.getElementById('commentCount');
+
+      countEl.textContent = comments.length;
+
+      if (comments.length === 0) {
+        container.innerHTML = '<div class="empty-comments">暂无评论</div>';
+        return;
+      }
+
+      container.innerHTML = comments.map((c) => `
+        <div class="comment">
+          <div class="comment-meta">
+            <span class="comment-author">${escapeHtml(c.author)}</span>
+          </div>
+          <div class="comment-body">${escapeHtml(c.content)}</div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function handleComment() {
+      const input = document.getElementById('commentInput');
+      const content = input.value.trim();
+
+      if (!content) {
+        showToast('评论内容不能为空', 'error');
+        return;
+      }
+
+      const comments = getComments();
+      comments.push({
+        author: '游客',
+        content: content
+      });
+      saveComments(comments);
+      input.value = '';
+      renderComments();
+      showToast('评论发表成功！');
+    }
+
+    function handleSearch() {
+      const keyword = document.getElementById('searchInput').value.trim();
+      if (!keyword) return;
+      if (keyword === '33214') {
+        document.getElementById('mainPost').classList.add('hidden');
+        document.getElementById('diaryPost').classList.remove('hidden');
+      } else if (keyword === '13106') {
+        location.href = '13106.html';
+      } else if (keyword === 'iamcatchingyou') {
+        location.href = 'iamcatchingyou.html';
+      } else {
+        showToast(`关键词「${keyword}」未找到相关帖子`, 'error');
+      }
+    }
+
+    function submitDiary() {
+      const input = document.getElementById('diaryInput');
+      const content = input.value.trim();
+      if (!content) return;
+      localStorage.setItem('jime_diary_input', content);
+      location.href = '17e748bed2f02f4d3feec4ef782cd02a.html';
+    }
+
+    function showPrivacy() {
+      document.getElementById('privacyModal').classList.add('show');
+    }
+
+    function closePrivacy() {
+      document.getElementById('privacyModal').classList.remove('show');
+    }
+
+    document.getElementById('privacyModal').addEventListener('click', function(e) {
+      if (e.target === this) closePrivacy();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderComments();
+    });
+  </script>
+</body>
+</html>

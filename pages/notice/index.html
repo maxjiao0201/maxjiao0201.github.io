@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>★ 通知公告 ★ 新林中学论坛</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="notice.css">
+</head>
+<body>
+  <div class="container">
+    <header class="banner">
+      <h1>★ 新林中学论坛 ★</h1>
+      <p class="subtitle">✧ 通知公告 ✧</p>
+      <p class="motto">「 校务公开 · 荣誉表彰 · 重要提醒 」</p>
+    </header>
+
+    <div class="marquee-bar">
+      <span>📢 请关注最新通知公告 · 荣誉通报将在此发布 · 重要消息请勿错过 📢</span>
+    </div>
+
+    <nav class="navbar">
+      <a href="../../index.html" class="nav-item" onclick="sessionStorage.setItem('from_notice','1')">🏠 主页</a>
+      <a href="index.html" class="nav-item active">📢 通知</a>
+      <a href="#" class="nav-item nav-pending" onclick="navPending(event, '活动')">🎉 活动</a>
+      <a href="#" class="nav-item nav-pending" onclick="navPending(event, '关于')">ℹ️ 关于</a>
+    </nav>
+
+    <hr class="rainbow-hr">
+
+    <div class="panel">
+      <div class="panel-title">📢 通知列表</div>
+      <ul class="notice-list" id="noticeList"></ul>
+      <div class="empty-state hidden" id="emptyNotices">
+        <span class="emoji">(´･ω･`)</span>
+        暂无通知
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© 2000-2026 新林中学论坛 | Powered by <span class="blink">HTML</span> + <span class="blink">localStorage</span></p>
+    </footer>
+  </div>
+
+  <script src="notices-data.js"></script>
+  <script src="notice.js"></script>
+</body>
+</html>
