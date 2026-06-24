@@ -307,7 +307,7 @@ function handleSearch(e) {
     return;
   }
   // 数据损坏提示
-  if (searchKeyword === '@:HSJHDXJ') {
+  if (searchKeyword === '@:HSLBDXL') {
     showToast('搜索的帖子数据损坏 [.../police/6rty1k.html]', 'error');
     return;
   }
